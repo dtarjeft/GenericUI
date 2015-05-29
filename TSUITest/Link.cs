@@ -1,8 +1,6 @@
-using TSUITest.Abstract_Controls;
-
 namespace TSUITest
 {
-    public abstract class Link<T> : Control<T>, ILink
+    public abstract class Link<T> :  ILink
     {
         public abstract void Click();
 

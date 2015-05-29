@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
-namespace TSUITest.Abstract_Controls
+namespace TSUITest.AbstractControls
 {
-    public abstract class Button<T> : Control<T>, IButton
+    public abstract class Button : Control, IButton
     {
         protected Button(string propertyValue, string propertyName)
             : base(propertyName, propertyValue)

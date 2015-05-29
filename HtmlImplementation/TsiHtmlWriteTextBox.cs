@@ -1,11 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 using TSUITest;
-using TSUITest.Abstract_Controls.TextBoxSubtypes;
+using TSUITest.AbstractControls.TextBoxSubtypes;
 
 namespace HtmlImplementation
 {
-    public class TsiHtmlWriteTextBox : WriteTextBox<HtmlEdit>
+    public class TsiHtmlWriteTextBox : WriteTextBox
     {
         public TsiHtmlWriteTextBox(UITestControl parentControl, string propertyValue, string propertyName = "id") : base(propertyValue, propertyName)
         {

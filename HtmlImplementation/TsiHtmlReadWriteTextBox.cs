@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.HtmlControls;
 using TSUITest;
-using TSUITest.Abstract_Controls.TextBoxSubtypes;
 
 namespace HtmlImplementation
 {

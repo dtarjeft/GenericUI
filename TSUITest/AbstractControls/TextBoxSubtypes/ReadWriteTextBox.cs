@@ -1,6 +1,6 @@
-namespace TSUITest.Abstract_Controls.TextBoxSubtypes
+namespace TSUITest.AbstractControls.TextBoxSubtypes
 {
-    public abstract class ReadWriteTextBox<T> : TextBox<T>, ITextSettable, ITextGettable
+    public abstract class ReadWriteTextBox : TextBox, ITextSettable, ITextGettable
     {
 
         public abstract string Value { get; set; }

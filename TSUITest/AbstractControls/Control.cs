@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace TSUITest.Abstract_Controls
+namespace TSUITest.AbstractControls
 {
-    public abstract class Control<T> : IControl
+    public abstract class Control : IControl
     {
         protected Control(string propertyValue, string propertyName)
         {

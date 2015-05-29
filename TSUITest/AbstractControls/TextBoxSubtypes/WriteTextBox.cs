@@ -1,6 +1,6 @@
-namespace TSUITest.Abstract_Controls.TextBoxSubtypes
+namespace TSUITest.AbstractControls.TextBoxSubtypes
 {
-    public abstract class WriteTextBox<T> : TextBox<T>, ITextSettable
+    public abstract class WriteTextBox : TextBox, ITextSettable
     {
         public abstract string Value { set; }
         protected WriteTextBox(string propertyValue, string propertyName) : base(propertyValue, propertyName) {}

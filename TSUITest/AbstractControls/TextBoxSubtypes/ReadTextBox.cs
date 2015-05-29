@@ -1,6 +1,6 @@
-namespace TSUITest.Abstract_Controls.TextBoxSubtypes
+namespace TSUITest.AbstractControls.TextBoxSubtypes
 {
-    public abstract class ReadTextBox<T> : TextBox<T>, ITextGettable
+    public abstract class ReadTextBox : TextBox, ITextGettable
     {
         protected ReadTextBox(string propertyValue, string propertyName) : base(propertyValue, propertyName) {}
 
