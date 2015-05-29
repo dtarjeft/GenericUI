@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,50 +10,108 @@ namespace HtmlImplementation
     [CodedUITest]
     public class Testing
     {
-        [TestMethod]
-        public void TsiLoginMethod1()
+        private ITestApplication app { get; set; }
+        [TestInitialize]
+        public void Init()
         {
-            var browser = BrowserWindow.Launch(new Uri("https://portaltest.titlesource.com/"));
-            var proc = browser.Process;
-            
-            var login = new TsiLoginPage(new TsiHtmlWriteTextBox(BrowserWindow.FromProcess(proc), "ctl00_contentPlaceHolder_txtUserName"),
-                new TsiHtmlWriteTextBox(BrowserWindow.FromProcess(proc), "ctl00_contentPlaceHolder_txtPassword"),
-                new TsiHtmlLink(BrowserWindow.FromProcess(proc), "ctl00_contentPlaceHolder_lbtnLogin"));
-            login.Run("irenevendor3", "Vendor123");
-
-            var switchVendor = new TsiSwitchVendor(new TsiHtmlLink(BrowserWindow.FromProcess(proc), "ctl00_Menus1_hlnkSwitchVendor"),
-                new TsiHtmlWriteTextBox(BrowserWindow.FromProcess(proc), "ctl00$ContentPlaceHolder1$txtVendorNumber"),
-                new TsiHtmlButton(BrowserWindow.FromProcess(proc), "ctl00_ContentPlaceHolder1_btnSubmit"),
-                new TsiHtmlButton(BrowserWindow.FromProcess(proc), "ctl00_lbtnClose"));
+            app = new HtmlTestApplication ( new TsiHtmlContext(BrowserWindow.Launch("http://www.google.com/")));
         }
 
         [TestMethod]
-        public void TsiLoginMethod2()
+        public void ContextLogin()
         {
-            var browser = BrowserWindow.Launch(new Uri("https://portaltest.titlesource.com/"));
-            TestSteps.LogInTest(new TsiHtmlWriteTextBox(browser, "ctl00_contentPlaceHolder_txtUserName"),
-                new TsiHtmlWriteTextBox(browser, "ctl00_contentPlaceHolder_txtPassword"),
-                new TsiHtmlLink(browser, "ctl00_contentPlaceHolder_lbtnLogin"),
-                "irenevendor3",
-                "Vendor123");
+            var successfulNav = app.NavigateToContext("Login");
+            if (!successfulNav)
+            {
+                Assert.Fail("Tried to go somewhere that this app doesn't know how to get to.");
+            }
 
+            var usernameControl = (IFreeFormInput) this.app.Context.GetControlByName("Username"); // Actually maybe this could be a generic and you could specify the return type as a type argument?
 
+            usernameControl.Value = "user";
+
+            var passwordControl = (IFreeFormInput) this.app.Context.GetControlByName("Password");
+            passwordControl.Value = "password1234";
+
+            var loginButton = (IClickable) this.app.Context.GetControlByName("Login");
+            loginButton.Click();
+
+            Assert.AreEqual("WhateverPageComesNext", this.app.Context.Name);
         }
     }
 
-    public static class TestSteps
+    public class HtmlTestApplication : ITestApplication
     {
-        public static void LogInTest(ITextSettable usernameTextBox, ITextSettable passwordTextBox, ILink submitButton, string username, string password)
+        private static BrowserWindow _webPage;
+        private readonly Dictionary<string, Uri> _contexts;
+        public HtmlTestApplication(TsiLoginHtmlContext tsiLoginHtmlContext)
         {
-            usernameTextBox.Value = username;
-            passwordTextBox.Value = password;
-            submitButton.Click();
+            Context = tsiLoginHtmlContext;
+            _webPage = tsiLoginHtmlContext.webPage;
+            _contexts = new Dictionary<string, Uri>
+            {
+                {"Login", new Uri("https://portaltest.titlesource.com/") },
+                {"SwitchVendor", new Uri("https://portaltest.titlesource.com/Vendor/Admin/SwitchUserVendor.aspx")},
+                {"OversightReview", new Uri("https://portaltest.titlesource.com/Vendor/Oversight/Queue.aspx")}
+            };
+        }
+
+        public IContext Context { get; private set; }
+
+        public bool NavigateToContext(string name)
+        {
+            if (_contexts.ContainsKey(name))
+            {
+                _webPage.NavigateToUrl(_contexts[name]);
+            }
+            else
+            {
+                return false;
+            }
+            return true;
         }
     }
 
-    public class TsiHtmlHoverTooltip
+    public class TsiLoginHtmlContext : IContext
     {
-        private ITextGettable Tooltip;
-        private IHover HoverOn;
+        internal BrowserWindow webPage;
+        internal Dictionary<string, IControl> controls; 
+        public TsiLoginHtmlContext(BrowserWindow browser)
+        {
+            webPage = browser;
+
+        }
+        public string Name
+        {
+            get { return webPage.Title; }
+        }
+
+        public IControl GetControlByName(string name)
+        {
+            if (controls.ContainsKey(name))
+            {
+                return controls[name];
+            }
+        }
+
+        public IControl GetControlById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetContentByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetContentById(string id)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public static class ControlsLookup
+    {
+        
     }
 }

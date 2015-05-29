@@ -39,16 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractControls\Button.cs" />
-    <Compile Include="AbstractControls\Control.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces.cs" />
-    <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AbstractControls\TextBoxSubtypes\ReadTextBox.cs" />
-    <Compile Include="AbstractControls\TextBoxSubtypes\ReadWriteTextBox.cs" />
-    <Compile Include="AbstractControls\TextBox.cs" />
-    <Compile Include="AbstractControls\TextBoxSubtypes\WriteTextBox.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

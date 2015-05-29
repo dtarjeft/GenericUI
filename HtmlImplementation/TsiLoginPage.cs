@@ -4,16 +4,16 @@ namespace HtmlImplementation
 {
     public class TsiLoginPage : IViewContext
     {
-        public TsiLoginPage(ITextSettable usernameTextSettable, ITextSettable passwordTextSettable, ILink submitButton)
+        public TsiLoginPage(IFreeFormInput usernameTextSettable, IFreeFormInput passwordTextSettable, IClickable submitButton)
         {
             _usernameTextBox = usernameTextSettable;
             _passwordTextBox = passwordTextSettable;
             _submitButton = submitButton;
         }
 
-        private readonly ITextSettable _usernameTextBox;
-        private readonly ITextSettable _passwordTextBox;
-        private readonly ILink _submitButton;
+        private readonly IFreeFormInput _usernameTextBox;
+        private readonly IFreeFormInput _passwordTextBox;
+        private readonly IClickable _submitButton;
 
         public void Run(string username, string password)
         {

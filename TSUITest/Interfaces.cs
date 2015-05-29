@@ -2,28 +2,45 @@ using System.Collections.Generic;
 
 namespace TSUITest
 {
-    public interface ITextSettable : IControl
+    public interface IFreeFormInput : IControl
     {
-        string Value { set; }
+        string Value { get; set; }
     }
-    public interface ITextGettable : IControl
+
+    public interface IToggle : IControl
     {
-        string Value { get; }
+        bool Value { get; set; }
     }
-    public interface IButton : IControl
-    {
-        void Push();
-    }
-    public interface ILink : IControl
+
+    public interface IClickable : IControl
     {
         void Click();
-    }
-    public interface IListContainer<out T> : IControl
-    {
-        IEnumerable<T> Items { get; }
     }
     public interface IHover : IControl
     {
         void Hover();
+    }
+
+    public interface IChoice : IControl
+    {
+        string Value { get; set; }
+
+        string[] Choices { get; }
+    }
+
+    public interface ITestApplication
+    {
+        IContext Context { get; }
+
+        bool NavigateToContext(string name);
+    }
+
+    public interface IContext
+    {
+        string Name { get; }
+        IControl GetControlByName(string name);
+        IControl GetControlById(string id);
+        string GetContentByName(string name);
+        string GetContentById(string id);
     }
 }
