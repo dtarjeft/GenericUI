@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract Controls\Button.cs" />
+    <Compile Include="Abstract Controls\Control.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Abstract Controls\TextBoxSubtypes\ReadTextBox.cs" />
     <Compile Include="Abstract Controls\TextBoxSubtypes\ReadWriteTextBox.cs" />

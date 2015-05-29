@@ -1,14 +1,10 @@
-using System.Collections.Generic;
-
 namespace TSUITest.Abstract_Controls
 {
-    public abstract class TextBox<T>
+    public abstract class TextBox<T> : Control<T>
     {
         protected TextBox(string propertyValue, string propertyName)
+            : base(propertyValue, propertyName)
         {
-            PropertyKeyValuePair = new KeyValuePair<string, string>(propertyName, propertyValue);
         }
-        protected T Self { get; set; }
-        public KeyValuePair<string, string> PropertyKeyValuePair { get; protected set; }
     }
 }
